@@ -11,18 +11,19 @@
 const $botonCalcular = document.querySelector("#boton-calcular");
 
 $botonCalcular.onclick = function(){
-    const horasArray = document.getElementsByClassName("horas");
-    const minutos = document.getElementsByClassName("minutos");
-    const segundos = document.getElementsByClassName("segundos");
+    const horasArray = document.querySelectorAll(".horas");
+    const minutosArray = document.querySelectorAll(".minutos");
+    const segundosArray = document.querySelectorAll(".segundos");
     
     let horasLimpias = 0
     let minutosCalculados = 0
     let segundosCalculados = 0
     let i
+
     for(i=0;i<=horasArray.length;i++){
-        horasLimpias += Number(horasLimpias[i]).value;
+        horasLimpias = horasLimpias + Number(horasArray[i]).value;
 
     }
-    console.log(horasCalculadas)
+    console.log(horasLimpias)
     return false
 }
