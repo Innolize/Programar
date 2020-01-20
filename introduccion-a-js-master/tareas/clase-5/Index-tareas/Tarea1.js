@@ -22,6 +22,20 @@ $botonCalcular.onclick = function()
 //cuando el usuario haga click en el botón "calcular", mostrar el salario mensual
 // en una caja de texto deshabilitada. --> <input type="text" disabled id="salario-mensual"/>
 
+const $botonCalcular = document.querySelector("#calcular");
+
+$botonCalcular.onclick = function(){
+  const salarioAnual = document.querySelector("#salario-anual").value;
+  let textoResultado = salarioAnual / 12 ;
+  document.querySelector("#salario-mensual").value = textoResultado;
+  return false;
+}
+
+
+
+
+
+
 //TAREA: En otro archivo html (no Index) y otro archivo js (no tarea-clase-5.js),
 // creá un formulario que capture el primer nombre, segundo nombre, apellido/s y edad del usuario
 // también vamos a crear un <h1> que diga Bienvenido!

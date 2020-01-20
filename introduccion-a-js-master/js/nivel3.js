@@ -228,11 +228,7 @@ console.log(nuestroTitulo.textContent)
 
 // TAREA: Actualizá el valor del atributo 'src' de nuestra etiqueta 'img' a "img/kittens.jpeg".
 
-const KITTENS = document.querySelector(`img`)
-
-console.log(KITTENS)
-
-KITTENS.src = "img/kittens.jpeg"
+document.querySelector("img").src = img/kittens.jpeg
 
 
 
@@ -256,7 +252,6 @@ KITTENS.src = "img/kittens.jpeg"
 */
 
 // Tarea: Obtené cualquier elemento de la página y cambiale algunos estilos.
-
 
 
 
