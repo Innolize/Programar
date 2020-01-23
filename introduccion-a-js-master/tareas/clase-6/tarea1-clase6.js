@@ -1,3 +1,4 @@
+//corregir
 /*
 TAREA: Empezar preguntando cuánta gente hay en el grupo familiar.
 Crear tantos inputs+labels como gente haya para completar la edad de cada integrante.
@@ -14,40 +15,41 @@ const $calcular = document.querySelector("#boton-calcular")
 const $reset = document.querySelector("#boton-reset")
 
 
-$calcular.onclick = function(){
+$calcular.onclick = function () {
     const edadesNodo = document.querySelectorAll(".familiares input");
     let edadFamilia = []
-    for(let i=0;i<edadesNodo.length;i++){
-    edadFamilia.push(Number(edadesNodo[i].value))
+    for (let i = 0; i < edadesNodo.length; i++) {
+        edadFamilia.push(Number(edadesNodo[i].value))
     }
     console.log(edadFamilia)
 
     let numeroMenor = edadFamilia[0]
-for(let i=0; i<edadFamilia.length;i++){
-    if (numeroMenor > edadFamilia[i])
-        numeroMenor = edadFamilia[i]
-}console.log(numeroMenor)
+    for (let i = 0; i < edadFamilia.length; i++) {
+        if (numeroMenor > edadFamilia[i])
+            numeroMenor = edadFamilia[i]
+    } console.log(numeroMenor)
 
-let numeroMayor = 0
-for(let i=0;i<edadFamilia.length;i++){
-    if(numeroMayor<edadFamilia[i])
-        numeroMayor=edadFamilia[i]
-} console.log(numeroMayor)
+    let numeroMayor = 0
+    for (let i = 0; i < edadFamilia.length; i++) {
+        if (numeroMayor < edadFamilia[i])
+            numeroMayor = edadFamilia[i]
+    } console.log(numeroMayor)
 
-let acumulador = 0
-{for(let i=0;i<edadFamilia.length;i++)
-    acumulador += edadFamilia[i]
+    let acumulador = 0
+    {
+        for (let i = 0; i < edadFamilia.length; i++)
+            acumulador += edadFamilia[i]
 
-}numeroPromedio = acumulador / edadFamilia.length
+    } numeroPromedio = acumulador / edadFamilia.length
 
-document.querySelector("strong").textContent = `La persona con mayor edad tiene ${numeroMayor}, la de menor edad tiene ${numeroMenor} y el promedio es de ${numeroPromedio} años`
+    document.querySelector("strong").textContent = `La persona con mayor edad tiene ${numeroMayor}, la de menor edad tiene ${numeroMenor} y el promedio es de ${numeroPromedio} años`
 }
 
 
-$boton.onclick = function(){
+$boton.onclick = function () {
     const numeroFamiliares = document.querySelector("#grupo-familiar").value
     let i
-    for (i = 0;i<numeroFamiliares;i++){
+    for (i = 0; i < numeroFamiliares; i++) {
         const crearDiv = document.createElement("div")
         crearDiv.className = "familiares"
         const crearLabel = document.createElement("label");
@@ -58,17 +60,17 @@ $boton.onclick = function(){
         document.querySelector("div").appendChild(crearLabel)
         document.querySelector("div").appendChild(crearInput)
 
-    }        
+    }
     return false
-} 
+}
 
 
-$reset.onclick = function(){
+$reset.onclick = function () {
     const $numeroFamiliares = document.querySelectorAll(".familiares");
-    for(let i=0; i<$numeroFamiliares.length;i++){
+    for (let i = 0; i < $numeroFamiliares.length; i++) {
         $numeroFamiliares[i].remove();
     }
-    document.querySelector("strong").textContent= " "
+    document.querySelector("strong").textContent = " "
 
 }
 
