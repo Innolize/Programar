@@ -10,38 +10,38 @@
 
 const $botonCalcular = document.querySelector("#boton-calcular");
 
-$botonCalcular.onclick = function(){
+$botonCalcular.onclick = function () {
     const horasArray = document.querySelectorAll(".horas");
     const minutosArray = document.querySelectorAll(".minutos");
     const segundosArray = document.querySelectorAll(".segundos");
-    
-    let horasLimpias = 0
-    let minutosLimpios = 0
-    let segundosLimpios = 0
-    let i
-//segundos
-    for(i=0;i<horasArray.length;i++){
-        segundosLimpios += Number(segundosArray[i].value);
-        if(segundosLimpios >=60){
-            segundosLimpios = segundosLimpios - 60;
-            minutosLimpios = minutosLimpios + 1 
-        }
+
+    let horas = 0
+    let minutos = 0
+    let segundos = 0
+
+    //segundos
+    for (i = 0; i < horasArray.length; i++) {
+        segundos += Number(segundosArray[i].value);
     }
-//minutos
-    for(i=0;i<minutosArray.length;i++){
-        minutosLimpios += Number(minutosArray[i].value);
-        if(minutosLimpios >=60){
-            minutosLimpios = minutosLimpios - 60;
-            horasLimpias = horasLimpias + 1 
-        }
+    //minutos
+    for (i = 0; i < minutosArray.length; i++) {
+        minutos += Number(minutosArray[i].value);
     }
-//horas
-    for(i=0;i<segundosArray.length;i++){
-        horasLimpias += Number(horasArray[i].value);
+
+    //horas
+    for (i = 0; i < segundosArray.length; i++) {
+        horas += Number(horasArray[i].value);
 
     }
 
-document.querySelector("strong").textContent = `${horasLimpias} horas, ${minutosLimpios} minutos, ${segundosLimpios} segundos.`
+    document.querySelector("strong").textContent = convertidorDeTiempo(segundos, minutos, horas)
 
     return false
+}
+
+function convertidorDeTiempo(segundos, minutos, horas) {
+    valorSegundos = segundos % 60
+    valorMinutos = Math.floor(segundos / 60) + minutos % 60
+    valorHoras = Math.floor(minutos / 60) + horas % 24
+    return(valorHoras + " horas, " + valorMinutos + " minutos, " + valorSegundos + "segundos.")
 }
