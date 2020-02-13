@@ -13,8 +13,10 @@ const $botonCalcular = document.querySelector("#boton-calcular")
 const $botonReset = document.querySelector("#boton-reset")
 const $form = document.querySelector("#formulario")
 const $salarioTrabajadores = document.querySelector("#salario-trabajadores")
+const $errores = document.querySelector("#errores")
 
 $botonSiguiente.onclick = function () {
+    borrarErrores();
     numeroDeTrabajadores = document.querySelector("#trabajadores").value
 
     const errorNumeroDeTrabajadores = validarNumeros(numeroDeTrabajadores);
@@ -26,6 +28,7 @@ $botonSiguiente.onclick = function () {
     const sinErrores = manejarErrores(errores) === 0
 
     if (sinErrores) {
+        ocultarSiguiente();
         $botonCalcular.className = ""
         crearTrabajadores(numeroDeTrabajadores)
     }
@@ -35,30 +38,26 @@ $botonSiguiente.onclick = function () {
 
 
 $botonCalcular.onclick = function () {
+    borrarErrores();
     const salariosAnualesArray = document.querySelectorAll("#salario-trabajadores input")
-    let salariosAnuales = []
-
-    salariosAnualesArray.forEach(function (salariosAnualesArray) {
-        salariosAnuales.push(Number(salariosAnualesArray.value))
-
-    });
-
-    let errorSalariosAnuales = []
-    salariosAnuales.forEach(function (elemento) {
-        errorSalariosAnuales.push(validarNumeros(elemento))
+    const salariosAnuales = []
+    salariosAnualesArray.forEach(function (element) {
+        salariosAnuales.push(Number(element.value))
     })
-    const erroresCalcular = {
-        inputSalario: errorSalariosAnuales
-    };
-    
-    const sinErrores = manejarErrores(erroresCalcular)
-    console.log(resultado)
 
-    //si activo esto se reinicia a pagina y siempre toma un error
-    //  if (sinErrores) {
-    //      $botonCalcular.className = "oculto"
-    //      document.querySelector("strong").textContent = `El salario Anual mas alto es: ${salarioAnualMayorCalculo(salariosAnuales)}, el mas bajo es: ${calcularSalarioMenor(salariosAnuales)}, el promedio es: ${promedioAnual(salariosAnuales)} y mensual del promedio es de: ${Math.floor(promedioAnual(salariosAnuales) / 12)}`
-    //  }
+    const erroresCalcular = {};
+
+    salariosAnualesArray.forEach(function (elemento) {
+        erroresCalcular[elemento.id] = validarNumeros(elemento.value);
+    })
+
+    const sinErrores = manejarErrores(erroresCalcular) === 0
+
+    if (sinErrores) {
+        ocultarCalcular()
+        document.querySelector("strong").textContent = `El salario Anual mas alto es: ${salarioAnualMayorCalculo(salariosAnuales)}, el mas bajo es: ${calcularSalarioMenor(salariosAnuales)}, el promedio es: ${promedioAnual(salariosAnuales)} y mensual del promedio es de: ${Math.floor(promedioAnual(salariosAnuales) / 12)}`
+        return false
+    }
 
     return false
 }
@@ -72,7 +71,11 @@ $botonReset.onclick = function () {
     $trabajadores.forEach(function ($trabajadores) {
         $trabajadores.remove();
     });
+    borrarErrores();
+    ocultarCalcular();
+    resetIntegrantes();
     document.querySelector("strong").textContent = " "
+
     return false
 }
 
@@ -109,7 +112,7 @@ function crearTrabajadores(numeroDeTrabajadores) {
         crearDiv.className = "inputSalarioDiv"
         crearLabel.textContent = "Salario anual:"
         crearInput.setAttribute = "type", "number"
-        crearInput.name = "inputSalario"
+        crearInput.id = `input-${i}`
         $salarioTrabajadores.appendChild(crearDiv)
         crearDiv.appendChild(crearLabel)
         crearDiv.appendChild(crearInput)
@@ -128,7 +131,6 @@ function validarNumeros(numeroAValidar) {
 
 function manejarErrores(errores) {
     const keys = Object.keys(errores);
-    const $errores = document.querySelector("#errores");
     let acumuladorErrores = 0
 
     keys.forEach(function (key) {
@@ -146,4 +148,22 @@ function manejarErrores(errores) {
         }
     });
     return acumuladorErrores
+}
+
+function ocultarSiguiente() {
+    $botonSiguiente.className = "oculto"
+}
+
+function ocultarCalcular() {
+    $botonCalcular.className = "oculto"
+}
+
+function borrarErrores() {
+    while ($errores.firstChild) {
+        $errores.removeChild($errores.firstChild)
+    }
+}
+
+function resetIntegrantes() {
+    $form.trabajadores.className = ""
 }
