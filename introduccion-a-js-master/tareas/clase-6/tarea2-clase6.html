@@ -1,30 +1,38 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Tarea 2 clase 6 corregir</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="clase6-css.css">
 
 </head>
+
 <body>
     <section>
-    <label type="text">Cuántos integrantes de tu familia trabajan?</label>
-    <input type="number" id="trabajadores">
-    <button type="submit" id="boton-siguiente">Siguiente</button>
-    <button type="submit" id="boton-calcular">Calcular</button>
-    <button type="reset" id="boton-reset">Reset</button>
-</section>
+        <form name="formulario" id="formulario">
+            <label type="text">Cuántos integrantes de tu familia trabajan?</label>
+            <input type="number" name="trabajadores" id="trabajadores">
+            <button type="submit" id="boton-siguiente">Siguiente</button>
+            <button type="submit" id="boton-calcular" class="oculto">Calcular</button>
+            <button type="reset" id="boton-reset">Reset</button>
 
 
 
 
 
+            <div id="salario-trabajadores"></div>
 
 
-<strong></strong>
+        </form>
+    </section>
+    <ul id="errores"></ul>
 
+    <strong></strong>
 </body>
 
 <script type="text/javascript" src="tarea2-clase6.js"></script>
+
 </html>
