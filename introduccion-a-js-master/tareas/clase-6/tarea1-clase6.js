@@ -10,105 +10,187 @@ Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuev
 
 
 
-const $boton = document.querySelector("#boton-ingresar")
-const $calcular = document.querySelector("#boton-calcular")
-const $reset = document.querySelector("#boton-reset")
+const $botonIngresar = document.querySelector("#boton-ingresar")
+const $botonCalcular = document.querySelector("#boton-calcular")
+const $botonReset = document.querySelector("#boton-reset")
+const $form = document.querySelector("#formulario")
+const $errores = document.querySelector("#errores")
 
+$botonIngresar.onclick = function () {
+    eliminarErrores();
+    const numeroFamiliares = document.querySelector("#familia").value
 
-$calcular.onclick = function () {
-    const edadesNodo = document.querySelectorAll(".familiares input");
-    let edadFamilia = []
-    for (let i = 0; i < edadesNodo.length; i++) {
-        edadFamilia.push(Number(edadesNodo[i].value))
+    const errorNumeroFamiliares = validarNumeros(numeroFamiliares);
+
+    const errores = {
+        familia: errorNumeroFamiliares
     }
-    console.log(edadFamilia)
+    const sinErrores = manejarErrores(errores) === 0
 
-    let numeroMenor = edadFamilia[0]
-    for (let i = 0; i < edadFamilia.length; i++) {
-        if (numeroMenor > edadFamilia[i])
-            numeroMenor = edadFamilia[i]
-    } console.log(numeroMenor)
+    if (sinErrores) {
+        ocultarIngresar();
+        mostrarCalcular();
+        crearGrupoFamiliar(numeroFamiliares)
+        return false
+    }
 
-    let numeroMayor = 0
-    for (let i = 0; i < edadFamilia.length; i++) {
-        if (numeroMayor < edadFamilia[i])
-            numeroMayor = edadFamilia[i]
-    } console.log(numeroMayor)
+    return false
+}
 
-    let acumulador = 0
-    {
-        for (let i = 0; i < edadFamilia.length; i++)
-            acumulador += edadFamilia[i]
+$botonCalcular.onclick = function () {
+    eliminarErrores();
+    const edadesNodo = document.querySelectorAll(".familiares input");
 
-    } numeroPromedio = acumulador / edadFamilia.length
+    let edadFamilia = EdadesFamiliaresInputs(edadesNodo)
 
-    document.querySelector("strong").textContent = `La persona con mayor edad tiene ${numeroMayor}, la de menor edad tiene ${numeroMenor} y el promedio es de ${numeroPromedio} años`
+    erroresCalcular = {}
+
+    edadesNodo.forEach(function (elemento) {
+        erroresCalcular[elemento.id] = validarNumeros(elemento.value)
+    })
+
+    const sinErrores = manejarErrores(erroresCalcular) === 0
+
+    if (sinErrores) {
+        ocultarCalcular();
+        document.querySelector("strong").textContent = `La persona con mayor edad tiene ${calcularMenor(edadFamilia)}, la de menor edad tiene ${calcularMayor(edadFamilia)} y el promedio es de ${Math.floor(calcuarPromedio(edadFamilia))} años`
+        return false
+    }
+    return false
 }
 
 
-$boton.onclick = function () {
-    const numeroFamiliares = document.querySelector("#grupo-familiar").value
-    let i
-    for (i = 0; i < numeroFamiliares; i++) {
+
+$botonReset.onclick = function () {
+    eliminarErrores();
+    ocultarCalcular();
+    eliminarResultado()
+    eliminarFamiliares();
+    mostrarIngresar();
+    fixearErrorFamilia();
+}
+
+
+
+
+
+function validarNumeros(numeroAValidar) {
+    if (/[,.]+/.test(numeroAValidar)) {
+        return "Los números ingresados no pueden contener decimales"
+    } if (numeroAValidar <= 0) {
+        return "Los números ingresados deben ser mayores a 0"
+    } else {
+        return ""
+    }
+}
+
+function calcularMenor(edadFamilia) {
+    let numeroMenor = edadFamilia[0]
+    edadFamilia.forEach(function (edadFamilia) {
+        if (numeroMenor > edadFamilia)
+            numeroMenor = edadFamilia
+    });
+    return numeroMenor
+}
+
+function calcularMayor(edadFamilia) {
+    let numeroMayor = edadFamilia[0]
+    edadFamilia.forEach(function (edadFamilia) {
+        if (numeroMayor < edadFamilia)
+            numeroMayor = edadFamilia
+    });
+    return numeroMayor
+}
+
+function calcuarPromedio(edadFamilia) {
+    let acumulador = 0
+    edadFamilia.forEach(function (edadFamilia) {
+        acumulador += edadFamilia
+    }); numeroPromedio = acumulador / edadFamilia.length
+    return numeroPromedio
+}
+
+function EdadesFamiliaresInputs(edadesNodo) {
+    let acumulador = []
+    edadesNodo.forEach(function (edadesNodo) {
+        acumulador.push(Number(edadesNodo.value))
+    })
+    return acumulador
+}
+
+function crearGrupoFamiliar(numeroFamiliares) {
+    for (let i = 0; i < numeroFamiliares; i++) {
         const crearDiv = document.createElement("div")
         crearDiv.className = "familiares"
         const crearLabel = document.createElement("label");
         const crearInput = document.createElement("input");
         crearLabel.textContent = "Edad"
         crearInput.setAttribute("type", "Number")
-        document.querySelector("body").appendChild(crearDiv)
-        document.querySelector("div").appendChild(crearLabel)
-        document.querySelector("div").appendChild(crearInput)
+        crearInput.id = `input-${i}`
+        document.querySelector("div").appendChild(crearDiv)
+        crearDiv.appendChild(crearLabel)
+        crearDiv.appendChild(crearInput)
 
     }
-    return false
 }
 
 
-$reset.onclick = function () {
-    const $numeroFamiliares = document.querySelectorAll(".familiares");
-    for (let i = 0; i < $numeroFamiliares.length; i++) {
-        $numeroFamiliares[i].remove();
-    }
-    document.querySelector("strong").textContent = " "
+function manejarErrores(errores) {
+    const keys = Object.keys(errores);
 
+    let acumuladorErrores = 0
+
+    keys.forEach(function (key) {
+        const error = errores[key];
+
+        if (error) {
+            $form[key].className = "error"
+            acumuladorErrores++
+
+            const $nuevoError = document.createElement("li")
+            $nuevoError.innerText = error;
+            $errores.appendChild($nuevoError)
+
+        } else {
+            $form[key].className = ""
+        }
+    });
+    return acumuladorErrores
 }
 
 
+function ocultarIngresar() {
+    $botonIngresar.className = "oculto"
+}
+function ocultarCalcular() {
+    $botonCalcular.className = "oculto"
+}
+function mostrarIngresar() {
+    $botonIngresar.className = ""
+}
+function eliminarErrores() {
+    while ($errores.firstChild) {
+        $errores.removeChild($errores.firstChild)
+    }
+}
 
+function eliminarResultado() {
+    document.querySelector("#resultado").textContent = ""
+}
 
+function eliminarFamiliares() {
+    const numeroFamiliares = document.querySelectorAll(".familiares");
+    numeroFamiliares.forEach(function (numeroFamiliares) {
+        numeroFamiliares.remove();
+    });
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function mostrarCalcular(){
+    $botonCalcular.className = ""
+}
+function fixearErrorFamilia(){
+    document.querySelector("#familia").className = ""
+}
 
 /*
 TAREA:
@@ -117,7 +199,6 @@ Al hacer click en "calcular", mostrar en un elemento pre-existente el mayor sala
 
 Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como 0).
 */
-
 
 
 
