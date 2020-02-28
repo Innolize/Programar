@@ -7,30 +7,53 @@
     <title>Tarea 2 clase 6 corregir</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="clase6-css.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 </head>
 
 <body>
     <section>
-        <form name="formulario" id="formulario">
-            <label type="text">Cuántos integrantes de tu familia trabajan?</label>
-            <input type="number" name="trabajadores" id="trabajadores">
-            <button type="submit" id="boton-siguiente">Siguiente</button>
-            <button type="submit" id="boton-calcular" class="oculto">Calcular</button>
-            <button type="reset" id="boton-reset">Reset</button>
+        <form name="formulario" id="formulario" class="form-group py-4" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <label type="text">Cuántos integrantes de tu familia trabajan?</label>
+                        <input type="number" name="trabajadores" id="trabajadores">
+                    </div>
+                    <div class="col-sm">
+                        <button type="button" id="boton-siguiente" class="btn btn-secondary">Siguiente</button>
+                        <button type="button" id="boton-calcular" class="oculto">Calcular</button>
+                        <button type="reset" id="boton-reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
 
 
 
+                <div id="salario-trabajadores"></div>
 
 
-            <div id="salario-trabajadores"></div>
-
-
+                <ul id="errores"></ul>
+                <strong></strong>
+            </div>
         </form>
-    </section>
-    <ul id="errores"></ul>
 
-    <strong></strong>
+
+
+
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 
 <script type="text/javascript" src="tarea2-clase6.js"></script>

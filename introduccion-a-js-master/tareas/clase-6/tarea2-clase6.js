@@ -29,7 +29,7 @@ $botonSiguiente.onclick = function () {
 
     if (sinErrores) {
         ocultarSiguiente();
-        $botonCalcular.className = ""
+        mostrarCalcuar();
         crearTrabajadores(numeroDeTrabajadores)
     }
     return false
@@ -39,15 +39,15 @@ $botonSiguiente.onclick = function () {
 
 $botonCalcular.onclick = function () {
     borrarErrores();
-    const salariosAnualesArray = document.querySelectorAll("#salario-trabajadores input")
-    const salariosAnuales = []
-    salariosAnualesArray.forEach(function (element) {
-        salariosAnuales.push(Number(element.value))
+    const $salariosAnuales = document.querySelectorAll("#salario-trabajadores input")
+    const salariosAnualesArray = []
+    $salariosAnuales.forEach(function (element) {
+        salariosAnualesArray.push(Number(element.value))
     })
 
     const erroresCalcular = {};
 
-    salariosAnualesArray.forEach(function (elemento) {
+    $salariosAnuales.forEach(function (elemento) {
         erroresCalcular[elemento.id] = validarNumeros(elemento.value);
     })
 
@@ -55,7 +55,9 @@ $botonCalcular.onclick = function () {
 
     if (sinErrores) {
         ocultarCalcular()
-        document.querySelector("strong").textContent = `El salario Anual mas alto es: ${salarioAnualMayorCalculo(salariosAnuales)}, el mas bajo es: ${calcularSalarioMenor(salariosAnuales)}, el promedio es: ${promedioAnual(salariosAnuales)} y mensual del promedio es de: ${Math.floor(promedioAnual(salariosAnuales) / 12)}`
+        document.querySelector("strong").className = `alert alert-primary`
+        document.querySelector("strong").textContent = `El salario Anual mas alto es: ${salarioAnualMayorCalculo(salariosAnualesArray)}, el mas bajo es: ${calcularSalarioMenor(salariosAnualesArray)}, el promedio es: ${promedioAnual(salariosAnualesArray)} y mensual del promedio es de: ${Math.floor(promedioAnual(salariosAnualesArray) / 12)}`
+
         return false
     }
 
@@ -71,10 +73,12 @@ $botonReset.onclick = function () {
     $trabajadores.forEach(function ($trabajadores) {
         $trabajadores.remove();
     });
+    mostrarSiguiente();
     borrarErrores();
     ocultarCalcular();
     resetIntegrantes();
-    document.querySelector("strong").textContent = " "
+    document.querySelector("strong").textContent = ""
+    document.querySelector("strong").className = ""
 
     return false
 }
@@ -143,6 +147,7 @@ function manejarErrores(errores) {
             const $nuevoError = document.createElement("li")
             $nuevoError.innerText = error;
             $errores.appendChild($nuevoError)
+            $errores.className = "alert alert-danger"
         } else {
             $form[key].className = ""
         }
@@ -162,8 +167,16 @@ function borrarErrores() {
     while ($errores.firstChild) {
         $errores.removeChild($errores.firstChild)
     }
+    $errores.className = ""
 }
 
 function resetIntegrantes() {
     $form.trabajadores.className = ""
+}
+
+function mostrarSiguiente(){
+    $botonSiguiente.className = "btn btn-secondary"
+}
+function mostrarCalcuar(){
+    $botonCalcular.className = "btn btn-secondary"
 }
