@@ -1,0 +1,27 @@
+{
+  "name": "programar",
+  "version": "1.0.0",
+  "description": "r/Argentina programar",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress-dev": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Innolize/Programar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Innolize/Programar/issues"
+  },
+  "homepage": "https://github.com/Innolize/Programar#readme",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.4.1"
+  },
+  "devDependencies": {
+    "cypress": "^4.1.0"
+  }
+}

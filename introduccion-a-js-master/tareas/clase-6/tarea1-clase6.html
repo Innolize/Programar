@@ -6,27 +6,34 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Tarea 1 Clase 6 corregir</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="clase6-css.css">
+    <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 
 <body>
     <form name="formulario" id="formulario">
-        <label>Cuantas personas hay en tu grupo familiar?</label>
-        <input type="number" name="familia" id="familia">
-        <button type="submit" id="boton-ingresar">Ingresar</button>
-        <button type="submit" id="boton-calcular">calcular</button>
-        <button type="reset" id="boton-reset">Reiniciar</button>
+        <div>
+            <label>Cuantas personas hay en tu grupo familiar?</label>
+        </div>
+        <div>
+            <input type="number" name="familia" id="familia">
+        </div>
+        <div>
+            <button type="submit" class="btn btn-secondary" id="boton-ingresar">Ingresar</button>
+            <button type="button" class="btn btn-secondary" id="boton-calcular">calcular</button>
+            <button type="button" class="btn btn-secondary" id="boton-reset">Reiniciar</button>
+
+        </div>
 
 
         <div></div>
 
+
+        <footer>
+            <strong id="resultado"></strong>
+            <ul id="errores"></ul>
+
+        </footer>
     </form>
-    <footer>
-        <strong id="resultado"></strong>
-        <ul id="errores"></ul>
-
-    </footer>
-
     <script type="text/javascript" src="tarea1-clase6.js"></script>
 </body>
 
