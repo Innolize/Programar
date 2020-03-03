@@ -53,13 +53,11 @@ $botonCalcular.onclick = function () {
 
     if (sinErrores) {
         ocultarCalcular();
-        document.querySelector("strong").textContent = `La persona con mayor edad tiene ${calcularMenor(edadFamilia)}, la de menor edad tiene ${calcularMayor(edadFamilia)} y el promedio es de ${Math.floor(calcuarPromedio(edadFamilia))} años`
+        document.querySelector("strong").textContent = `El mayor tiene ${calcularMenor(edadFamilia)} años, el menor tiene ${calcularMayor(edadFamilia)} años y el promedio es de ${Math.floor(calcuarPromedio(edadFamilia))} años`
         return false
     }
     return false
 }
-
-
 
 $botonReset.onclick = function () {
     eliminarErrores();
@@ -127,7 +125,7 @@ function crearGrupoFamiliar(numeroFamiliares) {
         crearLabel.textContent = "Edad"
         crearInput.setAttribute("type", "Number")
         crearInput.id = `input-${i}`
-        document.querySelector("div").appendChild(crearDiv)
+        $form.querySelector("#miembrosFamilia").appendChild(crearDiv)
         crearDiv.appendChild(crearLabel)
         crearDiv.appendChild(crearInput)
 
@@ -160,13 +158,13 @@ function manejarErrores(errores) {
 
 
 function ocultarIngresar() {
-    $botonIngresar.className = "oculto"
+    $botonIngresar.classList.add("invisible")
 }
 function ocultarCalcular() {
-    $botonCalcular.className = "oculto"
+    $botonCalcular.classList.add("invisible")
 }
 function mostrarIngresar() {
-    $botonIngresar.className = ""
+    $botonIngresar.classList.remove("invisible")
 }
 function eliminarErrores() {
     while ($errores.firstChild) {
@@ -186,10 +184,10 @@ function eliminarFamiliares() {
 }
 
 function mostrarCalcular(){
-    $botonCalcular.className = ""
+    $botonCalcular.classList.remove("invisible")
 }
 function fixearErrorFamilia(){
-    document.querySelector("#familia").className = ""
+    document.querySelector("#familia").value = ""
 }
 
 /*

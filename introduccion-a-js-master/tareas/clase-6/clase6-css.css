@@ -4,3 +4,12 @@
 .oculto {
     visibility: hidden
 }
+
+#formulario{
+    background-color: skyblue;
+    width: 100%;
+    max-width: 420px;
+    padding: 15px;
+    margin: auto;
+    
+}
