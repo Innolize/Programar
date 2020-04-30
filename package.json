@@ -19,7 +19,7 @@
   "homepage": "https://github.com/Innolize/Programar#readme",
   "dependencies": {
     "bootstrap": "^4.4.1",
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.0"
   },
   "devDependencies": {
     "cypress": "^4.1.0"
